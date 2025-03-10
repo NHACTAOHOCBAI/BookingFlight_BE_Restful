@@ -5,7 +5,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.bookingflight.demo.dtorequest.APIResponse;
+import com.bookingflight.demo.dto.request.APIResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

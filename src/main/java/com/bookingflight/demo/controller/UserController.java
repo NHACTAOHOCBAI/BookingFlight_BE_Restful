@@ -2,6 +2,7 @@ package com.bookingflight.demo.controller;
 
 import java.util.List;
 
+import com.bookingflight.demo.dto.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -9,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookingflight.demo.dtorequest.APIResponse;
-import com.bookingflight.demo.dtorequest.UserCreationRequest;
-import com.bookingflight.demo.dtorequest.UserUpdationRequest;
+import com.bookingflight.demo.dto.request.APIResponse;
+import com.bookingflight.demo.dto.request.UserCreationRequest;
+import com.bookingflight.demo.dto.request.UserUpdationRequest;
 import com.bookingflight.demo.entity.User;
 import com.bookingflight.demo.service.UserService;
 
@@ -42,12 +43,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    User getUser(@PathVariable("userId") String userId) {
+    UserResponse getUser(@PathVariable("userId") String userId) {
         return userService.getUser(userId);
     }
 
     @PutMapping("/{userId}")
-    User updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdationRequest request) {
+    UserResponse updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdationRequest request) {
         return userService.updateUser(userId, request);
     }
 
