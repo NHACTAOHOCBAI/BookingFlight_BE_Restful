@@ -14,6 +14,8 @@ import com.bookingflight.demo.dtorequest.UserUpdationRequest;
 import com.bookingflight.demo.entity.User;
 import com.bookingflight.demo.service.UserService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +27,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping()
-    User createUser(@RequestBody UserCreationRequest request) {
+    User createUser(@RequestBody @Valid UserCreationRequest request) {
         return userService.createRequest(request);
     }
 
