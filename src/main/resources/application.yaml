@@ -4,6 +4,10 @@ server:
         context-path: /bookingflight
 spring:
     datasource:
-        url: " jdbc:mysql://localhost:3306/bookingflight"
+        url: "jdbc:mysql://localhost:3306/bookingflight"
         username: root
         password: 123456
+    jpa:
+        hibernate:
+            ddl-auto: update
+    ##tu dong tao bang neu chua co
