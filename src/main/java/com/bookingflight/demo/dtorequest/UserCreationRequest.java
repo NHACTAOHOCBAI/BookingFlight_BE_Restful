@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public class UserCreationRequest {
     private String username;
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Size(min = 8, message = "PASSWORD_INVALID")
     private String password;
     private String firstName;
     private String lastName;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookingflight.demo.dtorequest.APIResponse;
 import com.bookingflight.demo.dtorequest.UserCreationRequest;
 import com.bookingflight.demo.dtorequest.UserUpdationRequest;
 import com.bookingflight.demo.entity.User;
@@ -27,8 +28,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping()
-    User createUser(@RequestBody @Valid UserCreationRequest request) {
-        return userService.createRequest(request);
+    APIResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
+        APIResponse<User> apiResponse = new APIResponse<User>();
+        apiResponse.setResult(userService.createRequest(request));
+        apiResponse.setCode(100);
+        apiResponse.setMessage("create successfully");
+        return apiResponse;
     }
 
     @GetMapping()

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.bookingflight.demo.dtorequest.UserCreationRequest;
 import com.bookingflight.demo.dtorequest.UserUpdationRequest;
 import com.bookingflight.demo.entity.User;
+import com.bookingflight.demo.exception.AppException;
+import com.bookingflight.demo.exception.ErrorCode;
 import com.bookingflight.demo.repository.UserRepository;
 
 @Service
@@ -17,7 +19,7 @@ public class UserService {
 
     public User createRequest(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername()))
-            throw new RuntimeException("User existed");
+            throw new AppException(ErrorCode.USER_EXISTED);
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
