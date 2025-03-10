@@ -1,0 +1,9 @@
+server:
+    port: 8080
+    servlet:
+        context-path: /bookingflight
+spring:
+    datasource:
+        url: " jdbc:mysql://localhost:3306/bookingflight"
+        username: root
+        password: 123456
