@@ -11,3 +11,5 @@ spring:
         hibernate:
             ddl-auto: update
     ##tu dong tao bang neu chua co
+jwt:
+    signerKey: "BfwinYQq0J+dbjiORm97UyItmDO1XP8H20oGZPY2bam1A1AI1qcbmNsB03VtRpsY"
