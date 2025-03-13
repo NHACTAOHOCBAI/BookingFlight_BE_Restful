@@ -3,7 +3,6 @@ package com.bookingflight.demo.service;
 import java.util.List;
 
 import com.bookingflight.demo.dto.response.UserResponse;
-import com.bookingflight.demo.enums.Role;
 import com.bookingflight.demo.mapper.UserMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -22,21 +21,20 @@ import com.bookingflight.demo.repository.UserRepository;
 @Service
 @RequiredArgsConstructor
 // tao constructor cho nhung thuoc tinh final,no null
-@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 // make final=> nhung thuoc tinh khong khai bao se thanh final private
-//=> Tao constructor , dependency injection
+// => Tao constructor , dependency injection
 public class UserService {
-     UserRepository userRepository;
-     UserMapper userMapper;
+    UserRepository userRepository;
+    UserMapper userMapper;
+
     public User createRequest(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername()))
             throw new AppException(ErrorCode.USER_EXISTED);
-       User user = userMapper.toUser(request);
+        User user = userMapper.toUser(request);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         // tao encoder bcrypt
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.USER.name());
-        // name():tra ve ten cua hang so
         return userRepository.save(user);
     }
 
@@ -52,7 +50,7 @@ public class UserService {
 
     public UserResponse updateUser(String userId, UserUpdationRequest request) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        userMapper.updateUser(user,request);
+        userMapper.updateUser(user, request);
         // convert data tu request sang user
         return userMapper.toUserResponse(userRepository.save(user));
         // goi update sau do convert sang UserResponse
