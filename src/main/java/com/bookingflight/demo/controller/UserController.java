@@ -32,7 +32,7 @@ public class UserController {
     APIResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
         APIResponse<User> apiResponse = new APIResponse<User>();
         apiResponse.setResult(userService.createRequest(request));
-//        apiResponse.setCode(100);
+        apiResponse.setCode(100);
         apiResponse.setMessage("create successfully");
         return apiResponse;
     }

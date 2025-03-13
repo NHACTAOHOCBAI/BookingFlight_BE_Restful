@@ -3,6 +3,7 @@ package com.bookingflight.demo.service;
 import java.util.List;
 
 import com.bookingflight.demo.dto.response.UserResponse;
+import com.bookingflight.demo.enums.Role;
 import com.bookingflight.demo.mapper.UserMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,8 @@ public class UserService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         // tao encoder bcrypt
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER.name());
+        // name():tra ve ten cua hang so
         return userRepository.save(user);
     }
 

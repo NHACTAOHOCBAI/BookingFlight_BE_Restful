@@ -47,25 +47,25 @@ public class AutheticationService {
         if (!authenticated) {
             throw new AppException(ErrorCode.INCORRECT_PASSWORD);
         }
-        String token = generateToken(request.getUsername());
+        String token = generateToken(user);
         return AuthenticationResponse.builder()
                 .token(token)
                 .authenticated(authenticated)
                 .build();
     }
 
-    public String generateToken(String username) {
+    public String generateToken(User user) {
         // tao token can header, payload,signature(header+payload+key)
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         // tao header chua thuat toan ky :HS512
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(username)
+                .subject(user.getUsername())
                 .issuer("phucdeptry")
                 .issueTime(new Date())
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
-                .claim("customClaim", "custom")
+                .claim("scope", user.getRole())
                 .build();
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
         // tao payload
