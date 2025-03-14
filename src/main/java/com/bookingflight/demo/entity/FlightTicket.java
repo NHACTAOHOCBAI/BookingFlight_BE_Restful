@@ -1,37 +1,37 @@
 package com.bookingflight.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Flight_Ticket")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class FlightTicket {
-
     @Id
-    @Column(name = "ticket_code", length = 20)
-    private String ticketCode;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String ticketCode;
+
+    @NotNull
+    BigDecimal price;
+
+    @NotNull
+    String status; // PaidStatus: Paid, Unpaid, Canceled
 
     @ManyToOne
-    @JoinColumn(name = "flight_Code", nullable = false)
-    private Flight flight;
+    @JoinColumn(name = "flight_code", nullable = false)
+    Flight flight;
 
     @ManyToOne
-    @JoinColumn(name = "customer_Id", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "customer_id", nullable = false)
+    Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "seat_Class_Id", nullable = false)
-    private SeatClass seatClass;
+    @JoinColumn(name = "seat_class_id", nullable = false)
+    SeatClass seatClass;
 
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
-
-    @Column(name = "status", length = 20, nullable = false)
-    private String status; // Paid, Unpaid, Canceled
 }
