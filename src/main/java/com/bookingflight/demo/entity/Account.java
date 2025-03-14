@@ -12,8 +12,8 @@ import lombok.AllArgsConstructor;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(name = "role_id", nullable = false)
     private Integer roleId; // 1: Admin, 2: employee, 3: customer

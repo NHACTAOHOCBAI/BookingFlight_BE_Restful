@@ -3,8 +3,6 @@ package com.bookingflight.demo.controller;
 import com.bookingflight.demo.dto.request.APIResponse;
 import com.bookingflight.demo.dto.request.AirportRequest;
 import com.bookingflight.demo.dto.response.AirportResponse;
-import com.bookingflight.demo.dto.response.UserResponse;
-import com.bookingflight.demo.entity.User;
 import com.bookingflight.demo.service.AirportService;
 import com.bookingflight.demo.service.UserService;
 import lombok.AccessLevel;
