@@ -21,12 +21,13 @@ import com.bookingflight.demo.repository.UserRepository;
 @Service
 @RequiredArgsConstructor
 // tao constructor cho nhung thuoc tinh final,no null
-@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 // make final=> nhung thuoc tinh khong khai bao se thanh final private
-//=> Tao constructor , dependency injection
+// => Tao constructor , dependency injection
 public class UserService {
-     UserRepository userRepository;
-     UserMapper userMapper;
+    UserRepository userRepository;
+    UserMapper userMapper;
+
     public User createRequest(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername()))
             throw new AppException(ErrorCode.USER_EXISTED);
@@ -49,7 +50,7 @@ public class UserService {
 
     public UserResponse updateUser(String userId, UserUpdationRequest request) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        userMapper.updateUser(user,request);
+        userMapper.updateUser(user, request);
         // convert data tu request sang user
         return userMapper.toUserResponse(userRepository.save(user));
         // goi update sau do convert sang UserResponse

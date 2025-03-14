@@ -32,9 +32,6 @@ public class Account {
     private String fullName;
 
     @NotNull
-    private String email;
-
-    @NotNull
     private String phoneNumber;
 
     @NotNull
