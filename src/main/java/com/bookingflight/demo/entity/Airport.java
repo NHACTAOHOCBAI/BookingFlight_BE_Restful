@@ -15,7 +15,7 @@ public class Airport {
 
     @Id
     @Column(name = "airport_code", length = 10)
-    private String airportCode;
+    private String airportCode="4";
 
     @Column(name = "airport_name", length = 100, nullable = false)
     private String airportName;
