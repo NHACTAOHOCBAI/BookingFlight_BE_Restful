@@ -4,8 +4,12 @@ public enum ErrorCode {
     USER_EXISTED(1001, "User existed"),
     USER_NOT_EXISTED(1003, "User not existed"),
     UNIDENTIFIED_EXCEPTION(9999, "Unidentified exception"),
-    PASSWORD_INVALID(1002, "Password must be at least 3 characters");
-
+    PASSWORD_INVALID(1002, "Password must be at least 3 characters"),
+    INCORRECT_PASSWORD(1004, "Incorrect password"),
+    AIRPORT_EXISTED(1001, "Airport's name existed"),
+    AIRPORT_NOT_EXISTED(1003, "Airport not existed"),
+    EMAIL_EXISTED(1001, "Email existed"),
+    ACCOUNT_NOT_EXISTED(1003, "Account not existed");
     ErrorCode(int code, String message) {
         this.code = code;
         this.message = message;
