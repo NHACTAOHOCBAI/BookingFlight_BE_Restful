@@ -6,20 +6,26 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
-public class Setting {
+public class FlightIntermediateAirport {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
 
-    @NotNull
-    private String settingName;
+    @ManyToOne
+    @JoinColumn(name = "flight_code", nullable = false)
+    Flight flight;
+
+    @ManyToOne
+    @JoinColumn(name = "airport_code", nullable = false)
+    Airport airport;
 
     @NotNull
-    private Integer value;
+    Integer stopoverDuration;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    @NotNull
+    String note;
 }

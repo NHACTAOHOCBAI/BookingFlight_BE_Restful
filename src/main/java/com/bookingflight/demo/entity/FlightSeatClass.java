@@ -1,29 +1,27 @@
 package com.bookingflight.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "Flight_Seat_Class")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class FlightSeatClass {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
 
     @ManyToOne
-    @JoinColumn(name = "flight_Code", nullable = false)
+    @JoinColumn(name = "flight_code", nullable = false)
     private Flight flight;
 
     @ManyToOne
-    @JoinColumn(name = "seat_Class_Id", nullable = false)
+    @JoinColumn(name = "seat_class_id", nullable = false)
     private SeatClass seatClass;
 
-    @Column(name = "quantity", nullable = false)
+    @NotNull
     private Integer quantity;
 }

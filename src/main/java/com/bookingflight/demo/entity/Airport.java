@@ -1,34 +1,33 @@
 package com.bookingflight.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.util.List;
+import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Entity
-@Table(name = "Airport")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Airport {
-
     @Id
-    @Column(name = "airport_code", length = 10)
-    private String airportCode;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String airportCode;
 
-    @Column(name = "airport_name", length = 100, nullable = false)
-    private String airportName;
+    @NotNull
+    String airportName;
 
-    @Column(name = "location", length = 100, nullable = false)
-    private String location;
+    @NotNull
+    String location;
 
     @OneToMany(mappedBy = "departureAirport")
-    private List<Flight> departureFlights;
+    Set<Flight> departingFlights;
 
     @OneToMany(mappedBy = "arrivalAirport")
-    private List<Flight> arrivalFlights;
+    Set<Flight> arrivingFlights;
 
-    @OneToMany(mappedBy = "transitAirport")
-    private List<FlightTransitAirport> transitFlights;
+    @OneToMany(mappedBy = "airport")
+    Set<FlightIntermediateAirport> flightStopOvers;
 }

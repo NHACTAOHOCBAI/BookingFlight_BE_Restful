@@ -1,47 +1,48 @@
 package com.bookingflight.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
+import java.util.Date;
+import java.util.Set;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "Flight")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Flight {
-
     @Id
-    @Column(name = "flight_Code", length = 20)
-    private String flightCode;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String flightCode;
 
-    @Column(name = "ticket_Price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal ticketPrice;
-
-    @ManyToOne
-    @JoinColumn(name = "departure_Airport_Code", nullable = false)
-    private Airport departureAirport;
+    @NotNull
+    BigDecimal basePrice;
 
     @ManyToOne
-    @JoinColumn(name = "arrival_Airport_Code", nullable = false)
-    private Airport arrivalAirport;
+    @JoinColumn(name = "departure_airport_code", nullable = false)
+    Airport departureAirport;
 
-    @Column(name = "departure_Date_Time", nullable = false)
-    private LocalDateTime departureDateTime;
+    @ManyToOne
+    @JoinColumn(name = "arrival_airport_code", nullable = false)
+    Airport arrivalAirport;
 
-    @Column(name = "flight_Duration", nullable = false)
-    private Integer flightDuration; // Flight duration in minutes
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    Date departureTime;
+
+    @NotNull
+    Integer flightDuration; // Flight duration in minutes
 
     @OneToMany(mappedBy = "flight")
-    private List<FlightTransitAirport> transitAirports;
+    Set<FlightTicket> tickets;
 
     @OneToMany(mappedBy = "flight")
-    private List<FlightSeatClass> seatClasses;
+    Set<FlightIntermediateAirport> flightIntermediateAirports;
 
     @OneToMany(mappedBy = "flight")
-    private List<FlightTicket> flightTickets;
+    Set<FlightSeatClass> flightSeatClasses;
+
 }

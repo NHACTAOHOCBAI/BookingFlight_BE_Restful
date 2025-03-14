@@ -1,31 +1,31 @@
 package com.bookingflight.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.util.List;
+import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Entity
-@Table(name = "Seat_Class")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class SeatClass {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String id;
 
-    @Column(name = "class_Name", length = 50, nullable = false)
+    @NotNull
     private String className;
 
-    @Column(name = "price_Percentage", nullable = false)
-    private Float pricePercentage; // Price factor compared to base ticket price
+    @NotNull
+    private Float priceMultiplier;
 
     @OneToMany(mappedBy = "seatClass")
-    private List<FlightSeatClass> flightSeatClasses;
+    private Set<FlightTicket> tickets;
+
 
     @OneToMany(mappedBy = "seatClass")
-    private List<FlightTicket> flightTickets;
+    private Set<FlightSeatClass> flightAssignments;
 }
