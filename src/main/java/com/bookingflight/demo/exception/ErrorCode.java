@@ -11,7 +11,10 @@ public enum ErrorCode {
     EMAIL_EXISTED(1001, "Email existed"),
     ACCOUNT_NOT_EXISTED(1003, "Account not existed"),
     EMAIL_INVALID(1005, "Email is invalid(ex:name@gmail.com)"),
-    INVALID_BIRTH(1004, "Invalid birth date");
+    INVALID_BIRTH(1004, "Invalid birth date"),
+    SEATCLASS_NOT_EXISTED(1003, "SeatClass not existed"),
+    SEATCLASS_NAME_EXISTED(1003, "SeatClass name existed"),;
+
     ErrorCode(int code, String message) {
         this.code = code;
         this.message = message;
