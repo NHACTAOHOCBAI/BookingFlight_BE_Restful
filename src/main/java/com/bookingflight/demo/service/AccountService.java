@@ -27,25 +27,21 @@ public class AccountService {
     AccountMapper accountMapper;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public AccountResponse createAccount(AccountRequest request) {
+    public AccountResponse createAccount( AccountRequest request) {
         if (accountRepository.existsByUserName(request.getUserName()))
             throw new AppException(ErrorCode.EMAIL_EXISTED);
+
+        // hash password
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        // tao encoder bcrypt
         request.setPassword(passwordEncoder.encode(request.getPassword()));
+        // set Dob
         Account account = accountMapper.toAccount(request);
-        try {
-            dateFormat.setLenient(false);// giup xet chat che dob
-            Date dob = dateFormat.parse(request.getDateOfBirth());
-            account.setDateOfBirth(dob);
-        }
-        catch (Exception e) {
-            throw new AppException(ErrorCode.INVALID_BIRTH);
-        }
-        // kiem tra dinh dang dob
+        account.setDateOfBirth(parseDate(request.getDateOfBirth()));
+        // luu
         Account savedAccount = accountRepository.save(account);
-        AccountResponse accountResponse= accountMapper.toAccountResponse(savedAccount);
-        accountResponse.setDateOfBirth(dateFormat.format(savedAccount.getDateOfBirth()));
+        // mapper
+        AccountResponse accountResponse = accountMapper.toAccountResponse(savedAccount);
+        accountResponse.setDateOfBirth(formatDate(savedAccount.getDateOfBirth()));
         return accountResponse;
     }
 
@@ -53,38 +49,49 @@ public class AccountService {
         List<Account> accounts = accountRepository.findAll();
         return accounts.stream().map(account -> {
             AccountResponse accountResponse = accountMapper.toAccountResponse(account);
-            accountResponse.setDateOfBirth(dateFormat.format(account.getDateOfBirth()));
+            accountResponse.setDateOfBirth(formatDate(account.getDateOfBirth()));
             return accountResponse;
         }).collect(Collectors.toList());
     }
 
     public AccountResponse getAccount(String id) {
-        Account account = accountRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
         AccountResponse accountResponse = accountMapper.toAccountResponse(account);
-        accountResponse.setDateOfBirth(dateFormat.format(account.getDateOfBirth()));
+        accountResponse.setDateOfBirth(formatDate(account.getDateOfBirth()));
         return accountResponse;
     }
 
     public Void deleteAccount(String id) {
-        accountRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
+        accountRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
         accountRepository.deleteById(id);
         return null;
     }
 
     public AccountResponse updateAccount(String id, AccountRequest request) {
-        Account account= accountRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
-        accountMapper.updateAccount(account,request);
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
+        accountMapper.updateAccount(account, request);
+        account.setDateOfBirth(parseDate(request.getDateOfBirth()));
+
+        Account updatedAccount = accountRepository.save(account);
+        AccountResponse accountResponse = accountMapper.toAccountResponse(updatedAccount);
+        accountResponse.setDateOfBirth(formatDate(updatedAccount.getDateOfBirth()));
+        return accountResponse;
+    }
+
+    // phuong thuc chuyen string sang date
+    private Date parseDate(String dateStr) {
         try {
-            dateFormat.setLenient(false);// giup xet chat che dob
-            Date dob = dateFormat.parse(request.getDateOfBirth());
-            account.setDateOfBirth(dob);
-        }
-        catch (Exception e) {
+            dateFormat.setLenient(false);
+            return dateFormat.parse(dateStr);
+        } catch (Exception e) {
             throw new AppException(ErrorCode.INVALID_BIRTH);
         }
-        Account updatedAccount = accountRepository.save(account);
-        AccountResponse accountResponse= accountMapper.toAccountResponse(updatedAccount);
-        accountResponse.setDateOfBirth(dateFormat.format(updatedAccount.getDateOfBirth()));
-        return accountResponse;
+    }
+    // phuong thuc chuyen date sang string
+    private String formatDate(Date date) {
+        return dateFormat.format(date);
     }
 }

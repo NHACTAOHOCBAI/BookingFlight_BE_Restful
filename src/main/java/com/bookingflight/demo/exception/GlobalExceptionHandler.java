@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
 
     // xu ly validation
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    ResponseEntity<APIResponse<String>> handlevalidException(MethodArgumentNotValidException exception) {
+    ResponseEntity<APIResponse<String>> handleValidException(MethodArgumentNotValidException exception) {
         String enumKey = exception.getFieldError().getDefaultMessage();
         // lay ra duoc enumKey
         ErrorCode errorCode = ErrorCode.valueOf(enumKey);

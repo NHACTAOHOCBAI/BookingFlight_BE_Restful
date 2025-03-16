@@ -4,6 +4,7 @@ import com.bookingflight.demo.dto.request.APIResponse;
 import com.bookingflight.demo.dto.request.AccountRequest;
 import com.bookingflight.demo.dto.response.AccountResponse;
 import com.bookingflight.demo.service.AccountService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -23,7 +24,7 @@ public class AccountController {
 
     // create
     @PostMapping()
-    ResponseEntity<APIResponse<AccountResponse>> createAccount(@RequestBody AccountRequest request) {
+    ResponseEntity<APIResponse<AccountResponse>> createAccount(@RequestBody @Valid AccountRequest request) {
         APIResponse<AccountResponse> apiResponse = APIResponse.<AccountResponse>builder()
                 .code(201)
                 .message("Account created")
