@@ -1,6 +1,8 @@
 package com.bookingflight.demo.controller;
 
+import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,7 @@ public class SeatClassController {
     private final SeatClassService seatClassService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<APIResponse<SeatClassResponse>> getSeatClassByID(@PathVariable("id") String id) {
+    public ResponseEntity<APIResponse<SeatClassResponse>> getSeatClassByID(@PathVariable("id") UUID id) {
         APIResponse<SeatClassResponse> apiResponse = APIResponse.<SeatClassResponse>builder()
                 .code(200)
                 .message("Get seat class by ID")
@@ -52,7 +54,7 @@ public class SeatClassController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<APIResponse<SeatClassResponse>> updateSeatClass(@PathVariable String id,
+    public ResponseEntity<APIResponse<SeatClassResponse>> updateSeatClass(@PathVariable UUID id,
             @RequestBody SeatClassRequest entity) {
         APIResponse<SeatClassResponse> apiResponse = APIResponse.<SeatClassResponse>builder()
                 .code(200)
@@ -63,17 +65,19 @@ public class SeatClassController {
     }
 
     @PostMapping()
-    public ResponseEntity<APIResponse<SeatClassResponse>> createSeatClass(@RequestBody SeatClassRequest entity) {
+    public ResponseEntity<APIResponse<SeatClassResponse>> createSeatClass(@RequestBody SeatClassRequest request) {
         APIResponse<SeatClassResponse> apiResponse = APIResponse.<SeatClassResponse>builder()
                 .code(201)
                 .message("Create seat class")
-                .result(seatClassService.createSeatClass(entity))
+                .result(seatClassService.createSeatClass(request))
                 .build();
         return ResponseEntity.created(null).body(apiResponse);
+        // return ResponseEntity.created(URI.create("/seatclasses/" +
+        // entity.getClassName())).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<APIResponse<Void>> deleteSeatClass(@PathVariable String id) {
+    public ResponseEntity<APIResponse<Void>> deleteSeatClass(@PathVariable UUID id) {
         seatClassService.deleteSeatClass(id);
         APIResponse<Void> apiResponse = APIResponse.<Void>builder()
                 .code(204)

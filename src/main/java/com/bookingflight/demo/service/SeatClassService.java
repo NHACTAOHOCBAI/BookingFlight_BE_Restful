@@ -1,6 +1,7 @@
 package com.bookingflight.demo.service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class SeatClassService {
                 .collect(Collectors.toList());
     }
 
-    public SeatClassResponse getSeatClassByID(String id) {
+    public SeatClassResponse getSeatClassByID(UUID id) {
         return seatClassRepository.findById(id)
                 .map(seatClassMapper::toResponse)
                 .orElseThrow(() -> new AppException(ErrorCode.SEATCLASS_NOT_EXISTED));
@@ -41,14 +42,14 @@ public class SeatClassService {
         return seatClassMapper.toResponse(seatClassRepository.save(seatClassMapper.toEntity(request)));
     }
 
-    public SeatClassResponse updateSeatClass(String id, SeatClassRequest request) {
+    public SeatClassResponse updateSeatClass(UUID id, SeatClassRequest request) {
         SeatClass seatClass = seatClassRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.SEATCLASS_NOT_EXISTED));
         SeatClassMapper.updateSeatClass(seatClass, request);
         return seatClassMapper.toResponse(seatClassRepository.save(seatClass));
     }
 
-    public void deleteSeatClass(String id) {
+    public void deleteSeatClass(UUID id) {
         seatClassRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.SEATCLASS_NOT_EXISTED));
 

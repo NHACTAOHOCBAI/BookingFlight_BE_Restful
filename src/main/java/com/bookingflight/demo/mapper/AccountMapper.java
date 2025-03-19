@@ -11,8 +11,10 @@ import org.mapstruct.MappingTarget;
 public interface AccountMapper {
     @Mapping(target = "dateOfBirth", ignore = true)
     Account toAccount(AccountRequest accountRequest);
+
     @Mapping(target = "dateOfBirth", ignore = true)
     AccountResponse toAccountResponse(Account account);
+
     @Mapping(target = "userName", ignore = true)
     @Mapping(target = "dateOfBirth", ignore = true)
     void updateAccount(@MappingTarget Account account, AccountRequest request);

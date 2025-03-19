@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SeatClassResponse {
+    private String id;
     private String className;
     private Float priceMultiplier;
 }

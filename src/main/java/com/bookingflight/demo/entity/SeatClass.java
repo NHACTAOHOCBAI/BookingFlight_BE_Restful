@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -14,7 +15,7 @@ import java.util.Set;
 public class SeatClass {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
+    UUID id;
 
     @NotNull
     private String className;
@@ -24,7 +25,6 @@ public class SeatClass {
 
     @OneToMany(mappedBy = "seatClass")
     private Set<FlightTicket> tickets;
-
 
     @OneToMany(mappedBy = "seatClass")
     private Set<FlightSeatClass> flightAssignments;
