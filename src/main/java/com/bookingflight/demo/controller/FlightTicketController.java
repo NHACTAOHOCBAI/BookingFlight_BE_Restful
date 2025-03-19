@@ -37,6 +37,7 @@ public class FlightTicketController {
         APIResponse<List<FlightTicketResponse>> apiResponse = APIResponse.<List<FlightTicketResponse>>builder()
                 .code(200)
                 .message("Get all ticket")
+                .result(flightTicketService.getAllFlightTickets())
                 .build();
         return ResponseEntity.ok().body(apiResponse);
     }
@@ -64,7 +65,7 @@ public class FlightTicketController {
     }
 
     //update
-    @PutMapping("/{ticketcode}")
+    @PutMapping("/{ticketCode}")
     ResponseEntity<APIResponse<FlightTicketResponse>> updateFlight(@PathVariable("ticketCode") String ticketCode, @RequestBody FlightTicketRequest request) {
         APIResponse<FlightTicketResponse> apiResponse = APIResponse.<FlightTicketResponse>builder()
                 .code(200)
