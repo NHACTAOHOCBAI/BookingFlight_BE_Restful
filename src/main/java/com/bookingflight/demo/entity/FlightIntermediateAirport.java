@@ -26,6 +26,5 @@ public class FlightIntermediateAirport {
     @NotNull
     Integer stopoverDuration;
 
-    @NotNull
     String note;
 }
