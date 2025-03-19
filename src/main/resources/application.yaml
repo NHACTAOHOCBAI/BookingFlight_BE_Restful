@@ -1,3 +1,7 @@
+logging:
+    level:
+        root: DEBUG
+        org.springframework: DEBUG
 server:
     port: 8080
     servlet:
@@ -13,3 +17,4 @@ spring:
     ##tu dong tao bang neu chua co
 jwt:
     signerKey: "zlb+wPyrWpzDEF5h33g5HbvfSPogFqMmLsEGG3tMj9zquKctGjOq0a7ssFMzXPr+"
+

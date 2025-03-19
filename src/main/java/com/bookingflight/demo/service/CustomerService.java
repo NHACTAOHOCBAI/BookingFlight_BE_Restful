@@ -46,7 +46,7 @@ public class CustomerService {
     }
 
     public CustomerResponse deleteCustomer(String id) {
-        Customer customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_EXISTED));
+        customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_EXISTED));
         customerRepository.deleteById(id);
         return null;
     }

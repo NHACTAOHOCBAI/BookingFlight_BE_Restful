@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
-public interface AirportMapper {
+public interface    AirportMapper {
     Airport toAirport(AirportRequest airportRequest);
     AirportResponse toAirportResponse(Airport airport);
     void updateAirport(@MappingTarget Airport airport, AirportRequest request);

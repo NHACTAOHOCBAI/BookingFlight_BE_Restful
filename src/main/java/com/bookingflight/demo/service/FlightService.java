@@ -52,7 +52,7 @@ public class FlightService {
     }
 
     public Void deleteFlight(String flightCode) {
-        Flight flight = flightRepository.findById(flightCode)
+        flightRepository.findById(flightCode)
                 .orElseThrow(() -> new AppException(ErrorCode.FLIGHT_NOT_EXISTED));
         flightRepository.deleteById(flightCode);
         return null;
