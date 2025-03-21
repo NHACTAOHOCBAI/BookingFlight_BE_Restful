@@ -1,12 +1,8 @@
 package com.bookingflight.demo.dto.request;
 
-import com.bookingflight.demo.dto.response.AirportResponse;
 import com.bookingflight.demo.dto.response.FlightIntermediateAirportResponse;
 import com.bookingflight.demo.dto.response.FlightSeatClassResponse;
-import com.bookingflight.demo.dto.response.SeatClassResponse;
 import com.bookingflight.demo.entity.Airport;
-import com.bookingflight.demo.entity.FlightIntermediateAirport;
-import com.bookingflight.demo.entity.FlightSeatClass;
 
 import lombok.AccessLevel;
 import lombok.Builder;

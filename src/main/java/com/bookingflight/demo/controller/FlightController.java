@@ -32,46 +32,53 @@ public class FlightController {
     }
 
     // get all
-    @GetMapping()
-    ResponseEntity<APIResponse<List<FlightResponse>>> getAllFlights() {
-        APIResponse<List<FlightResponse>> apiResponse = APIResponse.<List<FlightResponse>>builder()
-                .code(200)
-                .message("Get all flights")
-                .result(flightService.getAllFlights())
-                .build();
-        return ResponseEntity.ok().body(apiResponse);
-    }
+    // @GetMapping()
+    // ResponseEntity<APIResponse<List<FlightResponse>>> getAllFlights() {
+    // APIResponse<List<FlightResponse>> apiResponse =
+    // APIResponse.<List<FlightResponse>>builder()
+    // .code(200)
+    // .message("Get all flights")
+    // .result(flightService.getAllFlights())
+    // .build();
+    // return ResponseEntity.ok().body(apiResponse);
+    // }
 
-    //get one
-    @GetMapping("/{flightCode}")
-    ResponseEntity<APIResponse<FlightResponse>> getFlight(@PathVariable("flightCode") String flightCode) {
-        APIResponse<FlightResponse> apiResponse = APIResponse.<FlightResponse>builder()
-                .code(200)
-                .message("Get a flight")
-                .result(flightService.getFlight(flightCode))
-                .build();
-        return ResponseEntity.ok().body(apiResponse);
-    }
+    // //get one
+    // @GetMapping("/{flightCode}")
+    // ResponseEntity<APIResponse<FlightResponse>>
+    // getFlight(@PathVariable("flightCode") String flightCode) {
+    // APIResponse<FlightResponse> apiResponse =
+    // APIResponse.<FlightResponse>builder()
+    // .code(200)
+    // .message("Get a flight")
+    // .result(flightService.getFlight(flightCode))
+    // .build();
+    // return ResponseEntity.ok().body(apiResponse);
+    // }
 
-    //delete
-    @DeleteMapping("/{flightCode}")
-    ResponseEntity<APIResponse<Void>> deleteFlight(@PathVariable("flightCode") String flightCode) {
-        flightService.deleteFlight(flightCode);
-        APIResponse<Void> apiResponse = APIResponse.<Void>builder()
-                .code(204)
-                .message("Flight deleted")
-                .build();
-        return ResponseEntity.ok().body(apiResponse);
-    }
+    // //delete
+    // @DeleteMapping("/{flightCode}")
+    // ResponseEntity<APIResponse<Void>> deleteFlight(@PathVariable("flightCode")
+    // String flightCode) {
+    // flightService.deleteFlight(flightCode);
+    // APIResponse<Void> apiResponse = APIResponse.<Void>builder()
+    // .code(204)
+    // .message("Flight deleted")
+    // .build();
+    // return ResponseEntity.ok().body(apiResponse);
+    // }
 
-    //update
-    @PutMapping("/{flightCode}")
-    ResponseEntity<APIResponse<FlightResponse>> updateFlight(@PathVariable("flightCode") String flightCode, @RequestBody FlightRequest request) {
-        APIResponse<FlightResponse> apiResponse = APIResponse.<FlightResponse>builder()
-                .code(200)
-                .message("Flight updated")
-                .result(flightService.updateFlight(flightCode, request))
-                .build();
-        return ResponseEntity.ok().body(apiResponse);
-    }
+    // //update
+    // @PutMapping("/{flightCode}")
+    // ResponseEntity<APIResponse<FlightResponse>>
+    // updateFlight(@PathVariable("flightCode") String flightCode, @RequestBody
+    // FlightRequest request) {
+    // APIResponse<FlightResponse> apiResponse =
+    // APIResponse.<FlightResponse>builder()
+    // .code(200)
+    // .message("Flight updated")
+    // .result(flightService.updateFlight(flightCode, request))
+    // .build();
+    // return ResponseEntity.ok().body(apiResponse);
+    // }
 }

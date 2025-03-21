@@ -23,9 +23,9 @@ public class SeatClass {
     @NotNull
     private Float priceMultiplier;
 
-    @OneToMany(mappedBy = "seatClass")
-    private Set<FlightTicket> tickets;
+    // @OneToMany(mappedBy = "seatClass")
+    // private Set<FlightTicket> tickets;
 
-    @OneToMany(mappedBy = "seatClass")
-    private Set<FlightSeatClass> flightAssignments;
+    // @OneToMany(mappedBy = "seatClass")
+    // private Set<FlightSeatClass> flightAssignments;
 }
