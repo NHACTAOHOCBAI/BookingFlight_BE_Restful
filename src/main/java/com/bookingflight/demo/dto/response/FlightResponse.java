@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -19,4 +20,7 @@ public class FlightResponse {
     Airport arrivalAirport;
     Date departureTime;
     Integer flightDuration;
+
+    List<FlightSeatClassResponse> flightSeatClassResponses;
+    List<FlightIntermediateAirportResponse> flightIntermediateAirportResponses;
 }

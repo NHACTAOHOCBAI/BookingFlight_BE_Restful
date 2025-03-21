@@ -15,7 +15,7 @@ import java.util.UUID;
 public class SeatClass {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    String id;
 
     @NotNull
     private String className;

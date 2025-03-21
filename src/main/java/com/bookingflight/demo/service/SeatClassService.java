@@ -29,7 +29,7 @@ public class SeatClassService {
                 .collect(Collectors.toList());
     }
 
-    public SeatClassResponse getSeatClassByID(UUID id) {
+    public SeatClassResponse getSeatClassByID(String id) {
         return seatClassRepository.findById(id)
                 .map(seatClassMapper::toResponse)
                 .orElseThrow(() -> new AppException(ErrorCode.SEATCLASS_NOT_EXISTED));
@@ -42,14 +42,14 @@ public class SeatClassService {
         return seatClassMapper.toResponse(seatClassRepository.save(seatClassMapper.toEntity(request)));
     }
 
-    public SeatClassResponse updateSeatClass(UUID id, SeatClassRequest request) {
+    public SeatClassResponse updateSeatClass(String id, SeatClassRequest request) {
         SeatClass seatClass = seatClassRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.SEATCLASS_NOT_EXISTED));
         SeatClassMapper.updateSeatClass(seatClass, request);
         return seatClassMapper.toResponse(seatClassRepository.save(seatClass));
     }
 
-    public void deleteSeatClass(UUID id) {
+    public void deleteSeatClass(String id) {
         seatClassRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.SEATCLASS_NOT_EXISTED));
 

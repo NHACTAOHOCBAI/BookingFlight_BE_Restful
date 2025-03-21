@@ -22,12 +22,12 @@ public class Airport {
     @NotNull
     String location;
 
-    @OneToMany(mappedBy = "departureAirport")
-    Set<Flight> departingFlights;
+    // @OneToMany(mappedBy = "departureAirport")
+    // Set<Flight> departingFlights;
 
-    @OneToMany(mappedBy = "arrivalAirport")
-    Set<Flight> arrivingFlights;
+    // @OneToMany(mappedBy = "arrivalAirport")
+    // Set<Flight> arrivingFlights;
 
-    @OneToMany(mappedBy = "airport")
-    Set<FlightIntermediateAirport> flightStopOvers;
+    // @OneToMany(mappedBy = "airport")
+    // Set<FlightIntermediateAirport> flightStopOvers;
 }

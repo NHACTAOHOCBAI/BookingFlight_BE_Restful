@@ -17,4 +17,6 @@ public interface SeatClassMapper {
 
     }
 
+    SeatClass toEntity(SeatClassResponse seatClassResponse);
+
 }

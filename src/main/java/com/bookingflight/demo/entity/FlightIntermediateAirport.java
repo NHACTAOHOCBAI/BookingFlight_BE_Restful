@@ -1,11 +1,12 @@
 package com.bookingflight.demo.entity;
 
+import com.bookingflight.demo.dto.request.FlightRequest;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)

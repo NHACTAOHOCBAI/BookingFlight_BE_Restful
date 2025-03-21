@@ -36,13 +36,4 @@ public class Flight {
     @NotNull
     Integer flightDuration; // Flight duration in minutes
 
-    @OneToMany(mappedBy = "flight")
-    Set<FlightTicket> tickets;
-
-    @OneToMany(mappedBy = "flight")
-    Set<FlightIntermediateAirport> flightIntermediateAirports;
-
-    @OneToMany(mappedBy = "flight")
-    Set<FlightSeatClass> flightSeatClasses;
-
 }

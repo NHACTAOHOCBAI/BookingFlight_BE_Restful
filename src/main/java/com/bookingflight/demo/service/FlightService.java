@@ -1,14 +1,26 @@
 package com.bookingflight.demo.service;
 
 import com.bookingflight.demo.dto.request.FlightRequest;
+import com.bookingflight.demo.dto.request.SeatClassRequest;
+import com.bookingflight.demo.dto.response.FlightIntermediateAirportResponse;
 import com.bookingflight.demo.dto.response.FlightResponse;
+import com.bookingflight.demo.dto.response.FlightSeatClassResponse;
+import com.bookingflight.demo.dto.response.SeatClassResponse;
 import com.bookingflight.demo.entity.Airport;
 import com.bookingflight.demo.entity.Flight;
+import com.bookingflight.demo.entity.FlightIntermediateAirport;
+import com.bookingflight.demo.entity.FlightSeatClass;
+import com.bookingflight.demo.entity.SeatClass;
 import com.bookingflight.demo.exception.AppException;
 import com.bookingflight.demo.exception.ErrorCode;
 import com.bookingflight.demo.mapper.FlightMapper;
+import com.bookingflight.demo.mapper.SeatClassMapper;
 import com.bookingflight.demo.repository.AirportRepository;
+import com.bookingflight.demo.repository.FlightIntermediateAirportRepository;
 import com.bookingflight.demo.repository.FlightRepository;
+import com.bookingflight.demo.repository.FlightSeatClassRepository;
+import com.bookingflight.demo.repository.SeatClassRepository;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -23,7 +35,10 @@ import java.util.stream.Collectors;
 public class FlightService {
     FlightRepository flightRepository;
     AirportRepository airportRepository;
+    FlightSeatClassService flightSeatClassService;
+    FlightIntermediateAirportService flightIntermediateAirportSeatClassServices;
     FlightMapper flightMapper;
+
     public FlightResponse createFlight(FlightRequest request) {
         // Validate departure airport exists
         Airport departureAirport = airportRepository.findById(request.getDepartureAirport().getAirportCode())
@@ -37,31 +52,19 @@ public class FlightService {
         Flight flight = flightMapper.toFlight(request);
         flight.setDepartureAirport(departureAirport);
         flight.setArrivalAirport(arrivalAirport);
+        flight.setBasePrice(request.getBasePrice());
 
+        for (FlightSeatClassResponse flightSeatClassResponse : request.getFlightSeatClassResponses()) {
+            flightSeatClassResponse.setFlight(flight);
+            flightSeatClassService.createFlightSeatClass(flightSeatClassResponse);
+        }
+        for (FlightIntermediateAirportResponse flightIntermediateAirportResponse : request
+                .getFlightIntermediateAirportResponses()) {
+            flightIntermediateAirportResponse.setFlight(flight);
+            flightIntermediateAirportSeatClassServices
+                    .createFlightIntermediateAirport(flightIntermediateAirportResponse);
+        }
         return flightMapper.toFlightRespone(flightRepository.save(flight));
     }
-    public List<FlightResponse> getAllFlights() {
-        List<Flight> flights = flightRepository.findAll();
-        return flights.stream().map(flightMapper::toFlightRespone).collect(Collectors.toList());
-    }
 
-    public FlightResponse getFlight(String flightCode) {
-        Flight flight = flightRepository.findById(flightCode)
-                .orElseThrow(() -> new AppException(ErrorCode.FLIGHT_NOT_EXISTED));
-        return flightMapper.toFlightRespone(flight);
-    }
-
-    public Void deleteFlight(String flightCode) {
-        flightRepository.findById(flightCode)
-                .orElseThrow(() -> new AppException(ErrorCode.FLIGHT_NOT_EXISTED));
-        flightRepository.deleteById(flightCode);
-        return null;
-    }
-
-    public FlightResponse updateFlight(String flightCode, FlightRequest request) {
-        Flight flight = flightRepository.findById(flightCode)
-                .orElseThrow(() -> new AppException(ErrorCode.FLIGHT_NOT_EXISTED));
-        flightMapper.updateFlight(flight, request);
-        return flightMapper.toFlightRespone(flightRepository.save(flight));
-    }
 }

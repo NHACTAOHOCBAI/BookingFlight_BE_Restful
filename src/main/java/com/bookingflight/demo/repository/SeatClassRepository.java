@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.bookingflight.demo.entity.SeatClass;
 
 @Repository
-public interface SeatClassRepository extends JpaRepository<SeatClass, UUID> {
+public interface SeatClassRepository extends JpaRepository<SeatClass, String> {
     boolean existsByClassName(String className);
 }
