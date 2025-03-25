@@ -6,15 +6,13 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Set;
-
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String airportCode;
+    String id;
 
     @NotNull
     String airportName;

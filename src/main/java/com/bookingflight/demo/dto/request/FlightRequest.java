@@ -1,9 +1,5 @@
 package com.bookingflight.demo.dto.request;
 
-import com.bookingflight.demo.dto.response.FlightIntermediateAirportResponse;
-import com.bookingflight.demo.dto.response.FlightSeatClassResponse;
-import com.bookingflight.demo.entity.Airport;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -18,11 +14,11 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FlightRequest {
     BigDecimal basePrice;
-    Airport departureAirport;
-    Airport arrivalAirport;
+    String departureAirportId;
+    String arrivalAirportId;
     Date departureTime;
     Integer flightDuration;
 
-    List<FlightSeatClassResponse> flightSeatClassResponses;
-    List<FlightIntermediateAirportResponse> flightIntermediateAirportResponses;
+    List<FlightSeatClassRequest> listFlightSeatClassRequests;;
+    List<FlightIntermediateAirportRequest> listFlightIntermediateAirportRequests;
 }

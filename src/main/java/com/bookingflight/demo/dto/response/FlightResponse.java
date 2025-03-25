@@ -1,7 +1,7 @@
 package com.bookingflight.demo.dto.response;
 
-import com.bookingflight.demo.entity.Airport;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -12,15 +12,17 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FlightResponse {
+
     String flightCode;
     BigDecimal basePrice;
-    Airport departureAirport;
-    Airport arrivalAirport;
+    String departureAirportId;
+    String arrivalAirportId;
     Date departureTime;
     Integer flightDuration;
 
-    List<FlightSeatClassResponse> flightSeatClassResponses;
-    List<FlightIntermediateAirportResponse> flightIntermediateAirportResponses;
+    List<FlightSeatClassResponse> listFlightSeatClassResponses;
+    List<FlightIntermediateAirportResponse> listFlightIntermediateAirportResponses;
 }

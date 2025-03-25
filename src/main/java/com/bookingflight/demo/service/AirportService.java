@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AirportService {
     AirportRepository airportRepository;
-    private final AirportMapper airportMapper;
+    AirportMapper airportMapper;
 
     public AirportResponse createAirport(AirportRequest request) {
         if (airportRepository.existsByAirportName(request.getAirportName()))
@@ -35,19 +35,21 @@ public class AirportService {
     }
 
     public AirportResponse getAirport(String airportId) {
-        Airport airport = airportRepository.findById(airportId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        Airport airport = airportRepository.findById(airportId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         return airportMapper.toAirportResponse(airport);
     }
 
     public Void deleteAirport(String airportId) {
-        airportRepository.findById(airportId).orElseThrow(() -> new AppException(ErrorCode.AIRPORT_NOT_EXISTED ));
+        airportRepository.findById(airportId).orElseThrow(() -> new AppException(ErrorCode.AIRPORT_NOT_EXISTED));
         airportRepository.deleteById(airportId);
         return null;
     }
 
     public AirportResponse updateAirport(String airportId, AirportRequest request) {
-        Airport airport= airportRepository.findById(airportId).orElseThrow(() -> new AppException(ErrorCode.AIRPORT_NOT_EXISTED ));
-        airportMapper.updateAirport(airport,request);
+        Airport airport = airportRepository.findById(airportId)
+                .orElseThrow(() -> new AppException(ErrorCode.AIRPORT_NOT_EXISTED));
+        airportMapper.updateAirport(airport, request);
         return airportMapper.toAirportResponse(airportRepository.save(airport));
     }
 }

@@ -3,11 +3,11 @@ package com.bookingflight.demo.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
-import java.util.Set;
 import java.math.BigDecimal;
 
 @Entity
@@ -22,11 +22,11 @@ public class Flight {
     BigDecimal basePrice;
 
     @ManyToOne
-    @JoinColumn(name = "departure_airport_code", nullable = false)
+    @JoinColumn(name = "departureAirportId", nullable = false)
     Airport departureAirport;
 
     @ManyToOne
-    @JoinColumn(name = "arrival_airport_code", nullable = false)
+    @JoinColumn(name = "arrivalAirportId", nullable = false)
     Airport arrivalAirport;
 
     @NotNull

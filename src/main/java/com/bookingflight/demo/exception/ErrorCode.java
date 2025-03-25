@@ -17,7 +17,8 @@ public enum ErrorCode {
     SEATCLASS_NOT_EXISTED(1003, "SeatClass not existed"),
     SEATCLASS_NAME_EXISTED(1003, "SeatClass name existed"),
     FLIGHT_NOT_EXISTED(1003, "Flight not existed"),
-    TICKET_NOT_EXISTED(1003, "Ticket not existed"),;
+    TICKET_NOT_EXISTED(1003, "Ticket not existed"),
+    INVALID_REQUEST(1005, "Invalid request"),;
 
     ErrorCode(int code, String message) {
         this.code = code;
