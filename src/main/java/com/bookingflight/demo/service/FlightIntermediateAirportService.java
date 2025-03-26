@@ -53,7 +53,13 @@ public class FlightIntermediateAirportService {
         public List<FlightIntermediateAirportResponse> getFlightIntermediateAirportsByFlight(Flight flight) {
                 return repository.findByFlight(flight)
                                 .stream()
-                                .map(flightIntermediateAirportMapper::toFlightIntermediateAirportResponse)
+                                .map(flightIntermediateAirport -> {
+                                        FlightIntermediateAirportResponse response = flightIntermediateAirportMapper
+                                                        .toFlightIntermediateAirportResponse(flightIntermediateAirport);
+                                        response.setFlightId(flightIntermediateAirport.getFlight().getFlightCode());
+                                        response.setAirportId(flightIntermediateAirport.getAirport().getId());
+                                        return response;
+                                })
                                 .collect(Collectors.toList());
         }
 

@@ -13,10 +13,7 @@ import com.bookingflight.demo.entity.SeatClass;
 
 @Mapper(componentModel = "spring")
 public interface FlightSeatClassMapper {
-        // @Mapping(target = "flight", expression =
-        // "java(getFlight(request.getFlightId()))")
-        // @Mapping(target = "seatClass", expression =
-        // "java(getSeatClass(request.getSeatClassId()))")
+
         FlightSeatClass toFlightSeatClass(FlightSeatClassRequest request);
 
         FlightSeatClassResponse toFlightSeatClassResponse(FlightSeatClass entity);

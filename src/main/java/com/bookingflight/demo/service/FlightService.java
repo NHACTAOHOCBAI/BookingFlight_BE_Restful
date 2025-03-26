@@ -63,15 +63,54 @@ public class FlightService {
                                         .createFlightIntermediateAirport(flightIntermediateAirportRequest);
                 }
 
+                // FlightResponse flightResponse = flightMapper.toFlightRespone(flight);
+                // List<FlightSeatClassResponse> listFlightSeatClassResponses =
+                // flightSeatClassService
+                // .getFlightSeatClassesByFlight(flight);
+
+                // flightResponse.setListFlightSeatClassResponses(listFlightSeatClassResponses);
+                // List<FlightIntermediateAirportResponse> flightIntermediateAirports =
+                // flightIntermediateAirportSeatClassServices
+                // .getFlightIntermediateAirportsByFlight(flight);
+                // flightResponse.setListFlightIntermediateAirportResponses(flightIntermediateAirports);
+
+                return toResponse(flight);
+        }
+
+        public List<FlightResponse> getAllFlights() {
+                List<Flight> flights = flightRepository.findAll();
+                List<FlightResponse> flightResponses = flights.stream()
+                                .map(flight -> {
+                                        return toResponse(flight);
+                                })
+                                .toList(); // Chuyển thành danh sách
+                return flightResponses;
+        }
+
+        public FlightResponse getFlightById(String flightCode) {
+                Flight flight = flightRepository.findById(flightCode)
+                                .orElseThrow(() -> new AppException(ErrorCode.FLIGHT_NOT_EXISTED));
+                return toResponse(flight);
+        }
+
+        public FlightsResponse updateFlight(String flightCode, FlightRequest flightRequest) {
+                Flight flight = flightRepository.findById(flightCode)
+                                .orElseThrow(() -> new AppException(ErrorCode.FLIGHT_NOT_EXISTED));
+                flightMapper.updateFlight(flight, flightRequest);
+                flightRepository.save(flight);
+                return toResponse(flight);
+        }
+
+        public FlightResponse toResponse(Flight flight) {
                 FlightResponse flightResponse = flightMapper.toFlightRespone(flight);
-                List<FlightSeatClassResponse> listFlightSeatClassResponses = flightSeatClassService
+                flightResponse.setDepartureAirportId(flight.getDepartureAirport().getId());
+                flightResponse.setArrivalAirportId(flight.getArrivalAirport().getId());
+                List<FlightSeatClassResponse> seatClassResponses = flightSeatClassService
                                 .getFlightSeatClassesByFlight(flight);
-
-                flightResponse.setListFlightSeatClassResponses(listFlightSeatClassResponses);
-                List<FlightIntermediateAirportResponse> flightIntermediateAirports = flightIntermediateAirportSeatClassServices
+                flightResponse.setListFlightSeatClassResponses(seatClassResponses);
+                List<FlightIntermediateAirportResponse> intermediateAirports = flightIntermediateAirportSeatClassServices
                                 .getFlightIntermediateAirportsByFlight(flight);
-                flightResponse.setListFlightIntermediateAirportResponses(flightIntermediateAirports);
-
+                flightResponse.setListFlightIntermediateAirportResponses(intermediateAirports);
                 return flightResponse;
         }
 

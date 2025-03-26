@@ -64,7 +64,14 @@ public class FlightSeatClassService {
         public List<FlightSeatClassResponse> getFlightSeatClassesByFlight(Flight flight) {
                 return flightSeatClassRepository.findByFlight(flight)
                                 .stream()
-                                .map(flightSeatClassMapper::toFlightSeatClassResponse)
+                                .map((flightSeatClass) -> {
+                                        FlightSeatClassResponse flightSeatClassResponse = flightSeatClassMapper
+                                                        .toFlightSeatClassResponse(flightSeatClass);
+                                        flightSeatClassResponse
+                                                        .setFlightId(flightSeatClass.getFlight().getFlightCode());
+                                        flightSeatClassResponse.setSeatClassId(flightSeatClass.getSeatClass().getId());
+                                        return flightSeatClassResponse;
+                                })
                                 .collect(Collectors.toList());
         }
 
